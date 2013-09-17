@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>page的demo</title>
+    <link rel="stylesheet" href="http://a.tbcdn.cn/??p/global/1.0/global-min.css" />
+    <script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy-min.js" charset="utf-8"></script>
+    
+    <style style="text/css">
+     body{
+     	padding:10px 20px;
+     }
+     section{
+     	margin-bottom:20px;
+     	padding:20px 10px;
+     	border-bottom: 1px solid #ccc;
+     }
+     .pagination a,.pagination span{
+     	display: inline-block;
+     	margin-right:2px;
+        padding:2px 8px;
+        border:1px solid #ccc;
+     }
+     .pagination a,.pagination a:hover,.pagination a:visited{
+     	color:#08C;
+     }
+     .pagination a:hover{
+     	color:#ff6600;
+     	border: 1px solid #ff6600;
+        text-decoration: none;
+     }
+     .pagination span{
+     	color:#999;
+     	border:none;
+     }
+     .pagination-skip{
+     	margin:0px 5px;
+     	width:30px;
+     }
+     .pagination .pagination-current{
+     	color:#ff6600;
+     	font-weight: bold;
+     	border:none;
+     }
+     .pagination .pagination-current:hover,.pagination .pagination-current:visited{
+     	color:#ff6600;
+     	border:none;
+     }
+
+
+     .code{
+     	margin-top:10px;
+     	padding:10px;
+     	width: 400px;
+     	line-height: 21px;
+     	border:1px solid #ccc;
+     	color:#666;
+     	background: whiteSmoke;
+     }
+     </style>
+    <script>
+        var S = KISSY;
+        //if (S.Config.debug) {
+            var srcPath = "../../../";
+            S.config({
+                packages:[
+                    {
+                        name:"gallery",
+                        path:srcPath,
+                        charset:"utf-8",
+                        ignorePackageNameInUri:true,
+                        debug: true
+                    }
+                ]
+            });
+        //};
+    </script>
+    
+</head>
+<body>
+<h2>page的demo</h2>
+<p>以下是分页的demo，具体说api请点击。</p>
+<section>
+	<h3>完全版分页</h3>
+
+	<div id="page1">
+
+	</div>
+
+
+	<div class="code">
+        new Pagination({  <br/>
+           	   container: "#page1",   // 容器 <br/>
+
+           	   total_page: 11,        // 总页数 <br/>
+
+           	   continuous_page: 5,    // 连续显示分页数 <br/>
+
+           	   current_page: 6,       // 当前页  <br/>
+
+           	   first_page: rue,       // 首页   <br/>
+
+           	   preview_show: true,    // 是否显示第一页 <br/>
+
+           	   next_show: true,       // 是否显示下一页  <br/>
+
+           	   last_show: true,       // 最后一页   <br/>
+
+           	   edge_page: 2,          // 两端显示分页数  <br/>
+
+           	   skip_show: true        // 是否显示跳转    <br/>
+
+           });
+	</div>
+	
+
+	<script type="text/javascript">
+		S.use('gallery/pagination/1.0/index', function (S, Pagination) {
+           new Pagination({
+           	   container: "#page1",
+
+           	   total_page: 11,
+
+           	   continuous_page: 5,
+
+           	   current_page: 6,
+
+           	   preview_show: true,
+
+           	   first_show: true,
+
+           	   next_show: true, 
+
+           	   last_show: true,
+
+           	   edge_page: 2,
+
+           	   skip_show: true
+
+
+
+
+           });
+
+		});
+
+	</script>
+</section>
+
+<section>
+	<h3>淘宝版分页</h3>
+
+	<div id="page2">
+
+	</div>
+
+	<div class="code">
+        new Pagination({  
+           	   container: "#page2",   // 容器 <br/>
+
+           	   total_page: 20,        // 总页数 <br/>
+
+           	   continuous_page: 5,    // 连续显示分页数 <br/>
+
+           	   current_page: 7,       // 当前页  <br/>
+
+           	   preview_show: true,    // 是否显示第一页 <br/>
+
+           	   next_show: true,       // 是否显示下一页  <br/>
+
+           	   edge_page: 0           // 两端显示分页数  <br/>
+
+
+           });
+	</div>
+	
+
+	<script type="text/javascript">
+		S.use('gallery/pagination/1.0/index', function (S, Pagination) {
+           new Pagination({
+           	   container: "#page2",
+
+           	   total_page: 20,
+
+           	   continuous_page: 5,
+
+           	   current_page: 7,
+
+           	   preview_show: true,    
+
+           	   next_show: true,      
+
+           	   edge_page: 0
+
+
+
+
+           });
+
+		});
+
+	</script>
+</section>
+
+<section>
+	<h3>上页下页</h3>
+	
+	<div id="page3">
+
+	</div>
+
+	<div class="code">
+        new Pagination({  <br/>
+           	   container: "#page3",   // 容器 <br/>
+
+           	   total_page: 0,        // 总页数 <br/>
+
+           	   next_show: true,       // 是否显示下一页  <br/>
+
+           	   preview_show: true        // 是否显示上一页  <br/>
+
+
+           });
+	</div>
+	
+
+	<script type="text/javascript">
+		S.use('gallery/pagination/1.0/index', function (S, Pagination) {
+           new Pagination({
+           	   container: "#page3",
+
+           	   total_page: 0,
+
+           	   preview_show: true,
+
+           	   next_show: true
+
+
+
+           });
+
+		});
+
+	</script>
+</section>
+
+
+<section>
+	<h3>自定义事件</h3>
+	
+	<div id="page4">
+
+	</div>
+
+	<div class="code">
+        new Pagination({  <br/>
+           	   container: "#page4",   // 容器 <br/>
+
+           	   total_page: 0,        // 总页数 <br/>
+
+           	   next_show: true,       // 是否显示下一页  <br/>
+
+           	   preview_show: true       // 是否显示上一页  <br/>
+
+
+           });
+	</div>
+	
+
+	<script type="text/javascript">
+		S.use('gallery/pagination/1.0/index', function (S, Pagination) {
+           var Pagination = new Pagination({
+           	   container: "#page4",
+
+           	   total_page: 0,
+
+           	   preview_show: true,
+
+           	   next_show: true
+
+
+
+           });
+
+
+
+            Pagination.on("page:skip", function(e){
+                 alert(e.pageNum);
+            });
+
+		});
+
+	</script>
+</section>
+</body>
+</html>

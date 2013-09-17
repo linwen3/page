@@ -1,0 +1,14 @@
+{
+    "name": "pagination",
+    "version": "1.0",
+    "desc": "",
+    "cover": "",
+    "tag":"1.0",
+    "author": {
+        "name": "兰梦",
+        "email": "lanmeng.bhy@taobao.com",
+        "page": ""
+    },
+    "type": "kissy-gallery",
+    "type-url": "http://gallery.kissyui.com/guide"
+}
