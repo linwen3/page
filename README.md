@@ -4,10 +4,13 @@
 * 教程：[http://gallery.kissyui.com/page/1.0/guide/index.html](http://gallery.kissyui.com/page/1.0/guide/index.html)
 * demo：[http://gallery.kissyui.com/page/1.0/demo/index.html](http://gallery.kissyui.com/page/1.0/demo/index.html)
 
-### 组件支持场景
-* 原生下拉框样式难看，样式无法设置
-* 原生下拉框交互生硬，无法定制
-* 原生下拉框在IE6下层级较高，其他浮层无法覆盖
+### 组件介绍
+* 根据已知总页数，生成带页码的分页
+* 未知总页数的情况下，可以显示‘上一页’、‘下一页’
+* 支持用户自定义跳转页码
+* 支持设置各种文案，包括‘上一页’、‘下一页’、‘共x页’等
+* 支持设置当前页左右显示多少页，例如当前页是5，左右个显示2也，则出现的效果为 3 4 5 6 7连续页面
+* 可以支持设置边缘显示多少页，例如当前页是8，共20页， 左右边缘个显示2页，则效果为 1 2 ... 7 8 9 ... 19 20
 
 
 ### 初始化
@@ -137,8 +140,8 @@
 |goPreviewPage| |去上一页，当前页必须大于1才有上一页 |
 |goNextPage| |去下一页，下一页必须小于总页数，或者是单纯的上一页下一页结构|
 |skip| x |跳转到指定页 |
- 
-
+|disablePreviewPage|  | 让上一页的按钮变灰 |
+|disableNextPage|  | 让下一页的按钮变灰 | 
 
 
 
