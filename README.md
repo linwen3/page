@@ -13,75 +13,75 @@
 ### 初始化
 * 完整版分页
 
-	<div id="page1"></div>
-	<script>
-        KISSY.use('gallery/page/1.0/index', function (S, page) {
-            var pageObj = new page({
-            	container: "#page1",
-            	total_page: 11,
-            	continuous_page: 5,
-            	current_page: 6,
-            	preview_show: true,
-            	first_show: true,
-            	next_show: true,
-            	last_show: true,
-            	edge_page: 2,
-            	skip_show: true
-             });
-               
-         });
-	</script>
+		<div id="page1"></div>
+		<script>
+	        KISSY.use('gallery/page/1.0/index', function (S, page) {
+	            var pageObj = new page({
+	            	container: "#page1",
+	            	total_page: 11,
+	            	continuous_page: 5,
+	            	current_page: 6,
+	            	preview_show: true,
+	            	first_show: true,
+	            	next_show: true,
+	            	last_show: true,
+	            	edge_page: 2,
+	            	skip_show: true
+	             });
+	               
+	         });
+		</script>
 
 * 淘宝版分页（显示为：上一页 4 5 6 ... 下一页）
 
- 	<div id="page2"></div>
- 	<script type="text/javascript">
-	    KISSY.use('gallery/page/1.0/index', function (S, page) {
-	        var pageObj = new page({
-           	    container: "#page2",
-           	    total_page: 20,
-           	    continuous_page: 5,
-           	    current_page: 7,
-           	    preview_show: true,    
-           	    next_show: true,      
-           	    edge_page: 0
-           });
-		});
-	</script>
+	 	<div id="page2"></div>
+	 	<script type="text/javascript">
+		    KISSY.use('gallery/page/1.0/index', function (S, page) {
+		        var pageObj = new page({
+	           	    container: "#page2",
+	           	    total_page: 20,
+	           	    continuous_page: 5,
+	           	    current_page: 7,
+	           	    preview_show: true,    
+	           	    next_show: true,      
+	           	    edge_page: 0
+	           });
+			});
+		</script>
 
 * 仅有上一页、下一页
 
- 	<div id="page3"></div>
- 	<script type="text/javascript">
- 		KISSY.use('gallery/page/1.0/index', function (S, page) {
- 			new page({
- 				container: "#page3",
- 				total_page: 0,
- 				preview_show: true,
- 				next_show: true
- 		    });
-	
-		});
-	</script>
+	 	<div id="page3"></div>
+	 	<script type="text/javascript">
+	 		KISSY.use('gallery/page/1.0/index', function (S, page) {
+	 			new page({
+	 				container: "#page3",
+	 				total_page: 0,
+	 				preview_show: true,
+	 				next_show: true
+	 		    });
+		
+			});
+		</script>
 	
 * 添加自定义事件
 
- 	<div id="page4"></div>
- 	<script type="text/javascript">
- 		KISSY.use('gallery/page/1.0/index', function (S, page) {
- 		    var pageObj = new page({
- 		        container: "#page4",
- 		        total_page: 0,
- 		        preview_show: true,
- 		        next_show: true
- 		     });
-		
-             pageObj.on("page:skip", function(e){
-                 alert(e.pageNum);
-             });
-		
-		});
-    </script>
+	 	<div id="page4"></div>
+	 	<script type="text/javascript">
+	 		KISSY.use('gallery/page/1.0/index', function (S, page) {
+	 		    var pageObj = new page({
+	 		        container: "#page4",
+	 		        total_page: 0,
+	 		        preview_show: true,
+	 		        next_show: true
+	 		     });
+			
+	             pageObj.on("page:skip", function(e){
+	                 alert(e.pageNum);
+	             });
+			
+			});
+	    </script>
 		
 
 ### Attibute
