@@ -4,9 +4,22 @@
  * @module page
  **/
 KISSY.add(function (S, Node,Base, Event) {
+
     var isString = S.isString;
     var sub = S.substitute;
     var one = S.one;
+    
+    var PRE_CLASS = 'page-';
+    var FIRST_PAGE_CLASS = PRE_CLASS + 'first';
+    var PREVIEW_PAGE_CLASS = PRE_CLASS + 'preview';
+    var NEXT_PAGE_CLASS = PRE_CLASS + 'next';
+    var LAST_PAGE_CLASS = PRE_CLASS + 'last';
+    var NUM_PAGE_CLASS = PRE_CLASS + 'num';
+    var BTN_CLASS = PRE_CLASS + "btn";
+    var SKIP_CLASS = PRE_CLASS + "skip";
+    var TOTAL_CLASS = PRE_CLASS + "total";
+    var CURRENT_CLASS = PRE_CLASS + "current";
+    var DOT_CLASS = PRE_CLASS + "dot";
         
     /**
      * 
@@ -14,15 +27,15 @@ KISSY.add(function (S, Node,Base, Event) {
      * @constructor
      * @extends Base
      */
-    function Pagination(comConfig) {
+    function page(comConfig) {
         var self = this;
         //调用父类构造函数
-        Pagination.superclass.constructor.call(self, comConfig);
+        page.superclass.constructor.call(self, comConfig);
         
         self._init.apply(self, arguments);
     }
     
-    S.extend(Pagination, Base, {
+    S.extend(page, Base, {
     
         /**
          * 初始化分页，bind事件
@@ -33,9 +46,10 @@ KISSY.add(function (S, Node,Base, Event) {
         _init: function(){
             var self = this;
             self.container = self.get("container");
+           
 
             if(self.container){
-                
+               
                 //获取不可变的属性
                 self.renderPage();
                 self.bindUI();
@@ -59,19 +73,19 @@ KISSY.add(function (S, Node,Base, Event) {
                var className = node.attr("class");
 
                switch (className){
-                    case "pagination-first":
-                        self.firstPage(node);
+                    case FIRST_PAGE_CLASS:
+                        self.goFirstPage();
                         break;
-                    case "pagination-preview":
-                        self.previewPage(node);
+                    case PREVIEW_PAGE_CLASS:
+                        self.goPreviewPage();
                         break;
-                    case "pagination-next":
-                        self.nextPage(node);
+                    case NEXT_PAGE_CLASS:
+                        self.goNextPage();
                         break;
-                    case "pagination-last": 
-                        self.lastPage(node);
+                    case LAST_PAGE_CLASS: 
+                        self.goLastPage();
                         break;
-                    case "pagination-num":
+                    case NUM_PAGE_CLASS:
                         self.skip(node.html(), node);
                         break;
 
@@ -79,14 +93,15 @@ KISSY.add(function (S, Node,Base, Event) {
 
             });
 
-            Event.delegate(self.container, "click", "input[class=pagination-btn]", function(e){
+            Event.delegate(self.container, "click", "." + BTN_CLASS, function(e){
                 //var t = this;
-                var pageNum = self.container.one(".pagination-skip").get("value");
+                var target = e.currentTarget;
+                var pageNum = self.container.one("."+ SKIP_CLASS).val();
 
                 if(/^\d+$/.test(pageNum) && pageNum > 0){
-                    self.skip(pageNum, e.currentTarget);
+                    self.skip(pageNum, target);
                 } else {
-                    self.fire("page:error");
+                    self.fire("page:error", {target: one(target)});
                 }
                 
                  
@@ -103,7 +118,7 @@ KISSY.add(function (S, Node,Base, Event) {
         renderPage: function(){
             var self = this;
             self.htmlArr = [];
-            self.htmlArr.push("<div class='pagination'>");
+            self.htmlArr.push("<div class='page'>");
 
             var totalPage = self.get("total_page");
             var currentPage = self.get("current_page");
@@ -111,10 +126,10 @@ KISSY.add(function (S, Node,Base, Event) {
             //设置首页显示则显示首页
             //总数大于1页显示首页, 且当没有页数时
             var hasFirstPage = (totalPage > 0 && currentPage > 1);
-            self.get("first_show") && self._getOnePageHtml(self.get("first_text"),  hasFirstPage, "pagination-first");
+            self.get("first_show") && self._getOnePageHtml(self.get("first_text"),  hasFirstPage,  FIRST_PAGE_CLASS);
             
             //上一页
-            self.get("preview_show") && self._getOnePageHtml(self.get("preview_text"),  (currentPage > 1), "pagination-preview");
+            self.get("preview_show") && self._getOnePageHtml(self.get("preview_text"),  (currentPage > 1), PREVIEW_PAGE_CLASS);
             
 
             //只有上一页下一页的时候没有页数，不显示分页信息
@@ -127,44 +142,44 @@ KISSY.add(function (S, Node,Base, Event) {
 
 
                 for(var i = 1; i <= edgePage; i++){
-                    self._getOnePageHtml(i,  true, "pagination-num");
+                    self._getOnePageHtml(i,  true, NUM_PAGE_CLASS);
                 }
                 
                 if(self.startPage > (edgePage + 1) && self.get("edge_page")){
-                    self._getOnePageHtml(self.get("dot_text"),  false, "pagination-dot");
+                    self._getOnePageHtml(self.get("dot_text"),  false, DOT_CLASS);
                 }        
                 
                 var left = Math.max(edgePage + 1, self.startPage);
                 for(var i = left; i <= self.endPage; i++){
-                    self._getOnePageHtml(i,  true, "pagination-num");
+                    self._getOnePageHtml(i,  true, NUM_PAGE_CLASS);
                 }
                 
                 var right = totalPage - edgePage;
                 if(self.endPage < right){
-                    self._getOnePageHtml(self.get("dot_text"),  false, "pagination-dot");
+                    self._getOnePageHtml(self.get("dot_text"),  false, DOT_CLASS);
                 }
                 
                 right = Math.max(self.endPage, right);
                 for(var i = right + 1; i <= totalPage; i++){
-                    self._getOnePageHtml(i,  true, "pagination-num");
+                    self._getOnePageHtml(i,  true, NUM_PAGE_CLASS);
                 }    
             }
 
             //下一页
-            self.get("next_show") && self._getOnePageHtml(self.get("next_text"),  (currentPage < totalPage || totalPage == 0), "pagination-next");
+            self.get("next_show") && self._getOnePageHtml(self.get("next_text"),  (currentPage < totalPage || totalPage == 0), NEXT_PAGE_CLASS);
         
 
 
             //设置首页显示则显示首页
             //总数大于1页显示首页
             var haslastPage = (currentPage < totalPage && totalPage > 1);
-            self.get("last_show") && self._getOnePageHtml(self.get("last_text"),  haslastPage, "pagination-last");
+            self.get("last_show") && self._getOnePageHtml(self.get("last_text"),  haslastPage, LAST_PAGE_CLASS);
             
             //只有上一页下一页的时候不需要提供有多少页
             //总页数
             if(totalPage > 0){
                 if(self.get("total_show")){
-                    self._getOnePageHtml(sub(self.get("total_text"), {totalPage: totalPage}),  false, "pagination-total");
+                    self._getOnePageHtml(sub(self.get("total_text"), {totalPage: totalPage}),  false,  TOTAL_CLASS);
                 }
 
 
@@ -232,6 +247,10 @@ KISSY.add(function (S, Node,Base, Event) {
             return this.get("current_page");
         },
         
+        getCurrentNode: function(){
+           return one('.' + CURRENT_CLASS);
+        },
+        
         /**
          * 返回总页数
          * @method getToatalPage
@@ -244,58 +263,66 @@ KISSY.add(function (S, Node,Base, Event) {
         
         /**
          * 跳转到第一页
-         * @method firstPage
+         * @method goFirstPage
          * @param node {YUI NODE} 触发分页的节点
          * @public
          */
-        firstPage: function(node){
+        goFirstPage: function(){
             var self = this;
-            self.skip(1, node);
-            self.fire("page:firstPage");
+            var target = one('.' + FIRST_PAGE_CLASS);
+            
+            self.skip(1, target);
+            self.fire("page:firstPage", {target: target});
         },
 
         /**
          * 跳转到最后一页
-         * @method lastPage
+         * @method goLastPage
          * @param node {YUI NODE} 触发分页的节点
          * @public
          */
-        lastPage: function(node){
-            var t = this;
-            self.skip(self.get("total_page"), node);
-            self.fire("page:lastPage");
+        goLastPage: function(){
+            var self = this;
+            var target = one('.' + NUM_PAGE_CLASS);
+            
+            self.skip(self.get("total_page"), target);
+            self.fire("page:lastPage", {target: target});
         },
 
         /**
          * 上一页，当前页必须大于1才有上一页
-         * @method previewPage
+         * @method goPreviewPage
          * @param node {YUI NODE} 触发分页的节点
          * @public
          */
-        previewPage: function(node){
+        goPreviewPage: function(){
             var self = this;
             var currentPage = self.get("current_page");
+            var target = one('.' + PREVIEW_PAGE_CLASS);
+            
             if(currentPage > 1 || !totalPage){
-                self.skip(--currentPage, node);
+                self.skip(--currentPage, target);
             }
-            self.fire("page:previewPage");
+            self.fire("page:previewPage", {target: target});
             
         },
         
         /**
          * 下一页，下一页必须小于总页数，或者是单纯的上一页下一页结构
-         * @method nextPage
+         * @method goNextPage
          * @param node {YUI NODE} 触发分页的节点
          * @public
          */
-        nextPage: function(node){
+        goNextPage: function(){
             var self = this;
             var currentPage = self.get("current_page");
             var totalPage = self.get("total_page");
+            var target = one('.' + NEXT_PAGE_CLASS);
+            
             if(currentPage < totalPage || !totalPage){        //max is 空未处理
-                self.skip(++currentPage, node);
+                self.skip(++currentPage, target);
             }
-            self.fire("page:nextPage");
+            self.fire("page:nextPage", {target: target});
         },
 
         /**
@@ -310,10 +337,9 @@ KISSY.add(function (S, Node,Base, Event) {
            if(pageNum){//判断是大于1的数字
                 self.set("current_page", parseInt(pageNum));
             }
-            self.fire("page:skip", {pageNum: pageNum, node: node});
+            self.fire("page:skip", {pageNum: pageNum, target: node});
             self.renderPage();
         },
-
   
         //获取连续页的开始和结束
         _getBeginEnd: function(){
@@ -347,9 +373,9 @@ KISSY.add(function (S, Node,Base, Event) {
             var currentPage = self.get("current_page");
             if(isLink){
                 if(currentPage == text){
-                    className += " pagination-current"
+                    className += (" " + CURRENT_CLASS);
                 }
-                self.htmlArr.push("<a href='#' class='" + className + "'>"+ text +"</a>");
+                self.htmlArr.push("<a href='javascript:;' class='" + className + "'>"+ text +"</a>");
             } else {
                 self.htmlArr.push("<span class='" + className + "'>"+ text+"</span>");
             }
@@ -360,10 +386,10 @@ KISSY.add(function (S, Node,Base, Event) {
         _setSkipHtml: function(){
             var self = this;
             var html = [];
-            html.push(sub(self.get("skip_text"), {input: "<input type='text' class='pagination-skip' >"}));
-            html.push("<input type='button' class='pagination-btn' value='"+ self.get("skip_btn") +"' >");
+            html.push(sub(self.get("skip_text"), {input: "<input type='text' class='" + SKIP_CLASS + "' >"}));
+            html.push("<input type='button' class='"+ BTN_CLASS + "' value='"+ self.get("skip_btn") +"' >");
 
-            self._getOnePageHtml(html.join(''),  false, "pagination-total");
+            self._getOnePageHtml(html.join(''),  false,  TOTAL_CLASS);
         }
 
     }, {
@@ -380,7 +406,7 @@ KISSY.add(function (S, Node,Base, Event) {
 	            container: {
 	                value: null,
 	
-	                //没有判断是不是yui node 或者 html node
+	                //没有判断是不是kissy node 或者 html node
 	                getter: function(n){
 	                    if(isString(n)){
 	                        return one(n);
@@ -395,10 +421,11 @@ KISSY.add(function (S, Node,Base, Event) {
 	
 	            continuous_page: {   //最多可以看到的页数
 	                value: 5,
-	                gettter: function(val){
+	                getter: function(val){
 	                    if(val < this.get("edge_page")){
 	                        return this.get("edge_page");
 	                    }
+	                    return val;
 	                }
 	            },
 	
@@ -413,10 +440,11 @@ KISSY.add(function (S, Node,Base, Event) {
 	
 	            edge_page: {
 	                value: 2,      //两边可以看到的页数
-	                gettter: function(val){
-	                    if(val < this.get("total_page")){
+	                getter: function(val){
+	                    if(val > this.get("total_page")){
 	                        return this.get("total_page");
 	                    }
+	                    return val;
 	                }
 	            },
 	
@@ -478,7 +506,7 @@ KISSY.add(function (S, Node,Base, Event) {
 	        }
      });
      
-    return Pagination;
+    return page;
     
 }, {requires:['node', 'base', 'event']});
 
