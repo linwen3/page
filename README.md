@@ -12,6 +12,7 @@
 
 ### 初始化
 * 完整版分页
+
 	<div id="page1"></div>
 	<script>
         KISSY.use('gallery/page/1.0/index', function (S, page) {
@@ -32,6 +33,7 @@
 	</script>
 
 * 淘宝版分页（显示为：上一页 4 5 6 ... 下一页）
+
  	<div id="page2"></div>
  	<script type="text/javascript">
 	    KISSY.use('gallery/page/1.0/index', function (S, page) {
@@ -48,6 +50,7 @@
 	</script>
 
 * 仅有上一页、下一页
+
  	<div id="page3"></div>
  	<script type="text/javascript">
  		KISSY.use('gallery/page/1.0/index', function (S, page) {
@@ -62,6 +65,7 @@
 	</script>
 	
 * 添加自定义事件
+
  	<div id="page4"></div>
  	<script type="text/javascript">
  		KISSY.use('gallery/page/1.0/index', function (S, page) {
