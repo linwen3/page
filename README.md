@@ -134,9 +134,9 @@
 |changetTotalPage| xx | 重新设置总页数 |
 |setCurrentPage| xx | 重新设置当前选中页 |
 |getCurrentPage|  | 获取当前页 |
-|getToatalPage| |获取总页数 |
-|goFirstPage| | 跳转到第一页|
-|goLastPage| |跳转到最后一页 |
+|getToatalPage|  |获取总页数 |
+|goFirstPage|  | 跳转到第一页|
+|goLastPage|  |跳转到最后一页 |
 |goPreviewPage| |去上一页，当前页必须大于1才有上一页 |
 |goNextPage| |去下一页，下一页必须小于总页数，或者是单纯的上一页下一页结构|
 |skip| x |跳转到指定页 |
