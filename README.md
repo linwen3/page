@@ -112,6 +112,9 @@
 |preview_text| String | '上一页' | 上一页文案 |
 |next_show| Boolean | false | 是否显示下一页 |
 |next_text| String | '下一页' | 下一页文案 |
+|support_hash| Boolean | false | 是否读取设置hash |
+|hash_name| String | 'page' | hash的name |
+
 
 
 ### Events
@@ -124,6 +127,8 @@
 |page:previewPage| e.target：触发事件的节点| 上一页 |
 |page:nextPage| e.target：触发事件的节点| 下一页 |
 |page:skip|e.target：触发事件的节点； e.pageNum: 跳转的页数| 跳转到第几页，跳转成功以后触发 |
+|before:skip|e.target：触发事件的节点； e.pageNum: 跳转的页数| 跳转到第几页，跳转成功以后触发 |
+|after:skip|e.target：触发事件的节点； e.pageNum: 跳转的页数| 跳转到第几页，跳转成功以后触发 |
 
 
 ### Method
