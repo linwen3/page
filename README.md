@@ -107,7 +107,6 @@
 |first_text| String | '首页' | 首页文案 |
 |last_show| Boolean | false | 是否显示末页|
 |last_text| String| '末页' | 末页文案 |
-
 |preview_show| Boolean |  false | 是否显示上一页 |
 |preview_text| String | '上一页' | 上一页文案 |
 |next_show| Boolean | false | 是否显示下一页 |
