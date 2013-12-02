@@ -3,11 +3,12 @@
  * @author lanmeng.bhy<lanmeng.bhy@taobao.com>
  * @module page
  **/
-KISSY.add(function (S, Node,Base, Event) {
+KISSY.add(function (S, Node, RichBase, Event, Uri) {
 
     var isString = S.isString;
     var sub = S.substitute;
     var one = S.one;
+    var query = Uri.Query;
     
     var PRE_CLASS = 'page-';
     var FIRST_PAGE_CLASS = PRE_CLASS + 'first';
@@ -20,22 +21,11 @@ KISSY.add(function (S, Node,Base, Event) {
     var TOTAL_CLASS = PRE_CLASS + "total";
     var CURRENT_CLASS = PRE_CLASS + "current";
     var DOT_CLASS = PRE_CLASS + "dot";
-        
-    /**
-     * 
-     * @class Page
-     * @constructor
-     * @extends Base
-     */
-    function page(comConfig) {
-        var self = this;
-        //调用父类构造函数
-        page.superclass.constructor.call(self, comConfig);
-        
-        self._init.apply(self, arguments);
-    }
     
-    S.extend(page, Base, {
+    var NUMBER_REG = /^[1-9]+[0-9]*$/;
+        
+        
+    var page = RichBase.extend({
     
         /**
          * 初始化分页，bind事件
@@ -43,12 +33,18 @@ KISSY.add(function (S, Node,Base, Event) {
          * @method _init
          * @private
          */
-        _init: function(){
+        initializer: function(){
             var self = this;
             self.container = self.get("container");
            
 
             if(self.container){
+               
+               //判断是否支持hash
+               if(self.get('support_hash')){
+                   self._getHash();
+                   self._setHash();
+               }
                
                 //获取不可变的属性
                 self.renderPage();
@@ -106,8 +102,10 @@ KISSY.add(function (S, Node,Base, Event) {
                 
                  
             });
+            
+            self.get('support_hash') && self.on('page:skip', self._setHash, self);
         },
-
+         
         /**
          * 分页显示
          * 根据配置显示上一页，下一页等信息
@@ -334,11 +332,14 @@ KISSY.add(function (S, Node,Base, Event) {
          */
         skip: function(pageNum, node){
            var self = this;
+           
+           self.fire("before:skip", {pageNum: pageNum, target: node});
            if(pageNum){//判断是大于1的数字
                 self.set("current_page", parseInt(pageNum));
             }
-            self.fire("page:skip", {pageNum: pageNum, target: node});
             self.renderPage();
+            self.fire("page:skip", {pageNum: pageNum, target: node});
+            self.fire("after:skip", {pageNum: pageNum, target: node});
         },
   
         //获取连续页的开始和结束
@@ -390,7 +391,30 @@ KISSY.add(function (S, Node,Base, Event) {
             html.push("<input type='button' class='"+ BTN_CLASS + "' value='"+ self.get("skip_btn") +"' >");
 
             self._getOnePageHtml(html.join(''),  false,  TOTAL_CLASS);
+        },
+        
+        //设置hash值
+        _setHash: function(){
+            var self = this;
+            var hash = window.location.hash;
+            var hashObj = new query(hash.slice(1));
+            
+            hashObj.set(self.get('hash_name'), self.get('current_page'));
+            window.location.hash = hashObj.toString();
+
+        },
+        
+        //获取hash值
+        _getHash: function(){
+            var self = this;
+            var hash = window.location.hash.slice(1);
+            var currentPage = new query(hash).get(self.get('hash_name'));
+            
+            if(currentPage && NUMBER_REG.test(currentPage)){
+               self.set('current_page', currentPage);
+            }
         }
+        
 
     }, {
          ATTRS :  {
@@ -502,13 +526,21 @@ KISSY.add(function (S, Node,Base, Event) {
 	
 	            next_show: {
 	                value: false  //是否现实下一页
+	            },
+	            
+	            support_hash: {
+	                value: false
+	            },
+	            
+	            hash_name: {
+	                value: 'page'
 	            }
 	        }
      });
      
     return page;
     
-}, {requires:['node', 'base', 'event']});
+}, {requires:['node', 'rich-base', 'event', 'uri']});
 
 
 
