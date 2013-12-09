@@ -1,0 +1,31 @@
+.page a,.page span{
+	display: inline-block;
+	margin-right:2px;
+   padding:2px 8px;
+   border:1px solid #ccc;
+}
+.page a,.page a:hover,.page a:visited{
+	color:#08C;
+}
+.page a:hover{
+	color:#ff6600;
+	border: 1px solid #ff6600;
+   text-decoration: none;
+}
+.page span{
+	color:#999;
+	border:none;
+}
+.page-skip{
+	margin:0px 5px;
+	width:30px;
+}
+.page .page-current{
+	color:#ff6600;
+	font-weight: bold;
+	border:none;
+}
+.page .page-current:hover,.page .page-current:visited{
+	color:#ff6600;
+	border:none;
+}
