@@ -12,7 +12,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
     
     var PRE_CLASS = 'page-';
     var FIRST_PAGE_CLASS = PRE_CLASS + 'first';
-    var PREVIEW_PAGE_CLASS = PRE_CLASS + 'preview';
+    var PREVIOUS_PAGE_CLASS = PRE_CLASS + 'previous';
     var NEXT_PAGE_CLASS = PRE_CLASS + 'next';
     var LAST_PAGE_CLASS = PRE_CLASS + 'last';
     var NUM_PAGE_CLASS = PRE_CLASS + 'num';
@@ -72,8 +72,8 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
                     case FIRST_PAGE_CLASS:
                         self.goFirstPage();
                         break;
-                    case PREVIEW_PAGE_CLASS:
-                        self.goPreviewPage();
+                    case PREVIOUS_PAGE_CLASS:
+                        self.goPreviousPage();
                         break;
                     case NEXT_PAGE_CLASS:
                         self.goNextPage();
@@ -127,7 +127,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
             self.get("first_show") && self._getOnePageHtml(self.get("first_text"),  hasFirstPage,  FIRST_PAGE_CLASS);
             
             //上一页
-            self.get("preview_show") && self._getOnePageHtml(self.get("preview_text"),  (currentPage > 1), PREVIEW_PAGE_CLASS);
+            self.get("previous_show") && self._getOnePageHtml(self.get("previous_next"),  (currentPage > 1), PREVIOUS_PAGE_CLASS);
             
 
             //只有上一页下一页的时候没有页数，不显示分页信息
@@ -192,11 +192,11 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
 
         /**
          * 重新设置总页数
-         * @method changetTotalPage
+         * @method changeTotalPage
          * @param totalPage {Int} 总页数 
          * @public
          */
-        changetTotalPage: function(totalPage){
+        changeTotalPage: function(totalPage){
             var self = this;
             self.set("total_page", totalPage);
              //t.renderPage();
@@ -216,10 +216,10 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
         
         /**
          * 是否有上一页，主要给没有分页数字，只有上一页下一页使用
-         * @method disablePreviewPage
+         * @method disablePreviousPage
          * @public
          */
-        disablePreviewPage: function(){
+        disablePreviousPage: function(){
             var self = this;
             self.set("total_page", self.currentPage);
             self.renderPage();
@@ -251,10 +251,10 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
         
         /**
          * 返回总页数
-         * @method getToatalPage
+         * @method getTotalPage
          * @public
          */
-        getToatalPage: function(){
+        getTotalPage: function(){
             return this.get("total_page");
         },
 
@@ -289,19 +289,19 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
 
         /**
          * 上一页，当前页必须大于1才有上一页
-         * @method goPreviewPage
+         * @method goPreviousPage
          * @param node {YUI NODE} 触发分页的节点
          * @public
          */
-        goPreviewPage: function(){
+        goPreviousPage: function(){
             var self = this;
             var currentPage = self.get("current_page");
-            var target = one('.' + PREVIEW_PAGE_CLASS);
+            var target = one('.' + PREVIOUS_PAGE_CLASS);
             
             if(currentPage > 1 || !totalPage){
                 self.skip(--currentPage, target);
             }
-            self.fire("page:previewPage", {target: target});
+            self.fire("page:previousPage", {target: target});
             
         },
         
@@ -334,12 +334,14 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
            var self = this;
            
            self.fire("before:skip", {pageNum: pageNum, target: node});
-           if(pageNum){//判断是大于1的数字
+           if(pageNum > 0 && pageNum < self.get("total_page")){//判断是大于1的数字
                 self.set("current_page", parseInt(pageNum));
+                self.renderPage();
+                self.fire("after:skip", {pageNum: pageNum, target: node});
             }
-            self.renderPage();
+            
             self.fire("page:skip", {pageNum: pageNum, target: node});
-            self.fire("after:skip", {pageNum: pageNum, target: node});
+            self.fire("page:skipError", {pageNum: pageNum, target: node});
         },
   
         //获取连续页的开始和结束
@@ -512,7 +514,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
 	                value: "末页"
 	            },
 	
-	            preview_text: {
+	            previous_next: {
 	                value:  "上一页"  //文案
 	            },
 	
@@ -520,7 +522,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
 	                value: "下一页"  //文案
 	            },
 	
-	            preview_show: {
+	            previous_show: {
 	                value: false  //是否现实上一页
 	            },
 	

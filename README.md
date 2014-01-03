@@ -24,7 +24,7 @@
 	            	total_page: 11,
 	            	continuous_page: 5,
 	            	current_page: 6,
-	            	preview_show: true,
+	            	previous_show: true,
 	            	first_show: true,
 	            	next_show: true,
 	            	last_show: true,
@@ -45,7 +45,7 @@
 	           	    total_page: 20,
 	           	    continuous_page: 5,
 	           	    current_page: 7,
-	           	    preview_show: true,    
+	           	    previous_show: true,    
 	           	    next_show: true,      
 	           	    edge_page: 0
 	           });
@@ -60,7 +60,7 @@
 	 			new page({
 	 				container: "#page3",
 	 				total_page: 0,
-	 				preview_show: true,
+	 				previous_show: true,
 	 				next_show: true
 	 		    });
 		
@@ -75,7 +75,7 @@
 	 		    var pageObj = new page({
 	 		        container: "#page4",
 	 		        total_page: 0,
-	 		        preview_show: true,
+	 		        previous_show: true,
 	 		        next_show: true
 	 		     });
 			
@@ -107,8 +107,8 @@
 |first_text| String | '首页' | 首页文案 |
 |last_show| Boolean | false | 是否显示末页|
 |last_text| String| '末页' | 末页文案 |
-|preview_show| Boolean |  false | 是否显示上一页 |
-|preview_text| String | '上一页' | 上一页文案 |
+|previous_show| Boolean |  false | 是否显示上一页 |
+|previous_text| String | '上一页' | 上一页文案 |
 |next_show| Boolean | false | 是否显示下一页 |
 |next_text| String | '下一页' | 下一页文案 |
 |support_hash| Boolean | false | 是否读取设置hash |
@@ -123,7 +123,7 @@
 |page:error| e.target：触发事件的节点 | 点击分页按钮出错 |
 |page:firstPage| e.target：触发事件的节点 | 去第一页 |
 |page:lastPage| e.target：触发事件的节点 | 去最后一页 |
-|page:previewPage| e.target：触发事件的节点| 上一页 |
+|page:previousPage| e.target：触发事件的节点| 上一页 |
 |page:nextPage| e.target：触发事件的节点| 下一页 |
 |page:skip|e.target：触发事件的节点； e.pageNum: 跳转的页数| 跳转到第几页，跳转成功以后触发 |
 |before:skip|e.target：触发事件的节点； e.pageNum: 跳转的页数| 跳转到第几页，跳转成功以后触发 |
@@ -135,16 +135,16 @@
 |method|param|description|
 |:-----|:----|:----------|
 |renderPage|  | 重新显示分页，根据配置显示上一页，下一页等信息；原理： 根据连续显示页面条数 获取当前页应该连续显示的上下边界，再根据边界值显示省略号  |
-|changetTotalPage| xx | 重新设置总页数 |
+|changeTotalPage| xx | 重新设置总页数 |
 |setCurrentPage| xx | 重新设置当前选中页 |
 |getCurrentPage|  | 获取当前页 |
-|getToatalPage|  |获取总页数 |
+|getTotalPage|  |获取总页数 |
 |goFirstPage|  | 跳转到第一页|
 |goLastPage|  |跳转到最后一页 |
-|goPreviewPage| |去上一页，当前页必须大于1才有上一页 |
+|goPreviousPage| |去上一页，当前页必须大于1才有上一页 |
 |goNextPage| |去下一页，下一页必须小于总页数，或者是单纯的上一页下一页结构|
 |skip| x |跳转到指定页 |
-|disablePreviewPage|  | 让上一页的按钮变灰 |
+|disablePreviousPage|  | 让上一页的按钮变灰 |
 |disableNextPage|  | 让下一页的按钮变灰 | 
 
 
