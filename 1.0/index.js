@@ -210,7 +210,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
          */
         setCurrentPage: function(currentPage){
             var self = this;
-            self.set("currentPage", currentPage);
+            self.set("current_page", currentPage);
             self.renderPage();
         },
         
