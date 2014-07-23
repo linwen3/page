@@ -199,7 +199,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
         changeTotalPage: function(totalPage){
             var self = this;
             self.set("total_page", totalPage);
-             //t.renderPage();
+            self.renderPage();
         },
          
         /**
