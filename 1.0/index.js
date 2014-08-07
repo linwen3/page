@@ -120,7 +120,6 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
 
             var totalPage = self.get("total_page");
             var currentPage = self.get("current_page");
-            
             //设置首页显示则显示首页
             //总数大于1页显示首页, 且当没有页数时
             var hasFirstPage = (totalPage > 0 && currentPage > 1);
@@ -377,10 +376,12 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
             if(isLink){
                 if(currentPage == text){
                     className += (" " + CURRENT_CLASS);
+                    self.htmlArr.push("<span class='" + className + "'>"+ text +"</span>");
+                    return;
                 }
                 self.htmlArr.push("<a href='javascript:;' class='" + className + "'>"+ text +"</a>");
             } else {
-                self.htmlArr.push("<span class='" + className + "'>"+ text+"</span>");
+                self.htmlArr.push("<span class='" + className + ' ' + className + "-disabled'>"+ text+"</span>");
             }
 
         },
