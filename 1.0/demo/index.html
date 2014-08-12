@@ -4,8 +4,7 @@
     <meta charset="utf-8"/>
     <title>page的demo</title>
     <script src="http://g.tbcdn.cn/kissy/k/1.3.0/kissy-min.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="http://g.tbcdn.cn/??tb/global/1.0.5/global-min.css,tb/fp/1.1.4/first-screen-min.css,tb/fp/1.1.4/second-screen-min.css?t=20130711">
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="http://g.tbcdn.cn/??tb/global/2.0.0/global-min.css,tb/fp/1.1.4/first-screen-min.css,tb/fp/1.1.4/second-screen-min.css?t=202.0.0711">
     
     <style style="text/css">
     h2{
@@ -49,7 +48,37 @@
     .code .two-tab{
     	text-indent: 4em;
     }
-     
+     .page a,.page span{
+     	display: inline-block;
+     	margin-right:2px;
+        padding:2px 8px;
+        border:1px solid #ccc;
+     }
+     .page a,.page a:hover,.page a:visited{
+     	color:#08C;
+     }
+     .page a:hover{
+     	color:#ff6600;
+     	border: 1px solid #ff6600;
+        text-decoration: none;
+     }
+     .page span{
+     	color:#999;
+     	border:none;
+     }
+     .page-skip{
+     	margin:0px 5px;
+     	width:30px;
+     }
+     .page .page-current{
+     	color:#ff6600;
+     	font-weight: bold;
+     	border:none;
+     }
+     .page .page-current:hover,.page .page-current:visited{
+     	color:#ff6600;
+     	border:none;
+     }
      </style>
     <script>
         var S = KISSY;
@@ -59,7 +88,7 @@
             S.config({
                 packages:[
                     {
-                        name:"gallery",
+                        name:"gallery-back",
                         path:srcPath,
                         charset:"utf-8",
                         ignorePackageNameInUri:true,
@@ -70,7 +99,7 @@
         };
     </script>
     
-</head>
+<script>var S = KISSY;S.config({packages:[{name:"kg",path:"http://g.tbcdn.cn/kg/",charset:"utf-8",ignorePackageNameInUri:true}]});if (S.Config.debug){var srcPath = "../";S.config({packages:[{name:"kg/page/2.0.5",path:srcPath,charset:"utf-8",ignorePackageNameInUri:true}]});}</script></head>
 <body>
 <h2>page 的 demo </h2>
 <div class="demo">
@@ -82,7 +111,7 @@
 
 
 	<div class="code">
-	    <p>S.use('gallery/page/1.0/index', function (S, page) { </p>
+	    <p>S.use('kg/page/2.0.5/index', function (S, page) { </p>
 	        <p class="one-tab">var pageObj = new page({  <br/>
 	           	  <p class="two-tab"> container: "#page1",   // 容器 </p>
 	
@@ -94,7 +123,7 @@
 	
 	           	  <p class="two-tab"> first_page: rue,       // 首页   </p>
 	
-	           	  <p class="two-tab"> preview_show: true,    // 是否显示第一页 </p>
+	           	  <p class="two-tab"> previous_show: true,    // 是否显示第一页 </p>
 	
 	           	  <p class="two-tab"> next_show: true,       // 是否显示下一页  </p>
 	
@@ -115,7 +144,7 @@
 	
 
 	<script type="text/javascript">
-		S.use('gallery/page/1.0/index', function (S, page) {
+		S.use('kg/page/2.0.5/index', function (S, page) {
            var pageObj = new page({
            	   container: "#page1",
 
@@ -125,7 +154,7 @@
 
            	   current_page: 6,
 
-           	   preview_show: true,
+           	   previous_show: true,
 
            	   first_show: true,
 
@@ -162,7 +191,7 @@
 	</div>
 
 	<div class="code">
-	    <p>S.use('gallery/page/1.0/index', function (S, page) { </p>
+	    <p>S.use('kg/page/2.0.5/index', function (S, page) { </p>
 	       <p class="one-tab">var pageObj = new page({  
 	           	  <p class="two-tab"> container: "#page2",   // 容器 </p>
 	
@@ -172,7 +201,7 @@
 	
 	           	   <p class="two-tab">current_page: 7,       // 当前页  </p>
 	
-	           	   <p class="two-tab">preview_show: true,    // 是否显示第一页 </p>
+	           	   <p class="two-tab">previous_show: true,    // 是否显示第一页 </p>
 	
 	           	   <p class="two-tab">next_show: true,       // 是否显示下一页  </p>
 	
@@ -184,7 +213,7 @@
 	
 
 	<script type="text/javascript">
-		S.use('gallery/page/1.0/index', function (S, page) {
+		S.use('kg/page/2.0.5/index', function (S, page) {
            var pageObj = new page({
            	   container: "#page2",
 
@@ -194,7 +223,7 @@
 
            	   current_page: 7,
 
-           	   preview_show: true,    
+           	   previous_show: true,    
 
            	   next_show: true,      
 
@@ -220,15 +249,15 @@
 	</div>
 
 	<div class="code">
-	   <p> S.use('gallery/page/1.0/index', function (S, page) { </p>
+	   <p> S.use('kg/page/2.0.5/index', function (S, page) { </p>
             <p class="one-tab">new page({  <br/>
            	   <p class="two-tab">container: "#page3",   // 容器 </p>
 
-           	   <p class="two-tab">total_page: 0,        // 总页数 </p>
+           	   <p class="two-tab">total_page: 5,        // 总页数 </p>
 
            	   <p class="two-tab">next_show: true,       // 是否显示下一页  </p>
 
-           	   <p class="two-tab">preview_show: true        // 是否显示上一页  </p>
+           	   <p class="two-tab">previous_show: true        // 是否显示上一页  </p>
 
 
          <p class="one-tab">   });</p>
@@ -237,13 +266,13 @@
 	
 
 	<script type="text/javascript">
-		S.use('gallery/page/1.0/index', function (S, page) {
+		S.use('kg/page/2.0.5/index', function (S, page) {
            new page({
            	   container: "#page3",
 
-           	   total_page: 0,
+           	   total_page: 5,
 
-           	   preview_show: true,
+           	   previous_show: true,
 
            	   next_show: true
 
@@ -265,15 +294,15 @@
 	</div>
 
 	<div class="code">
-        <p>S.use('gallery/page/1.0/index', function (S, page) { </p>
+        <p>S.use('kg/page/2.0.5/index', function (S, page) { </p>
 	        <p class="one-tab">var pageObj = new page({  </p>
 	           	   <p class="two-tab">container: "#page4",   // 容器 </p>
 	
-	           	   <p class="two-tab">total_page: 0,        // 总页数 </p>
+	           	   <p class="two-tab">total_page: 5,        // 总页数 </p>
 	
 	           	   <p class="two-tab">next_show: true,       // 是否显示下一页  </p>
 	
-	           	   <p class="two-tab">preview_show: true       // 是否显示上一页  </p>
+	           	   <p class="two-tab">previous_show: true       // 是否显示上一页  </p>
 	
 	
 	          <p class="one-tab"> });</p>
@@ -287,13 +316,13 @@
 	
 
 	<script type="text/javascript">
-		S.use('gallery/page/1.0/index', function (S, page) {
+		S.use('kg/page/2.0.5/index', function (S, page) {
            var pageObj = new page({
            	   container: "#page4",
 
-           	   total_page: 0,
+           	   total_page: 5,
 
-           	   preview_show: true,
+           	   previous_show: true,
 
            	   next_show: true
 
