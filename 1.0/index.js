@@ -257,6 +257,13 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
             return this.get("total_page");
         },
 
+        //清楚事件绑定
+        destory: function(){
+            var self = this;
+            Event.undelegate(self.container, 'click', 'a');
+            Event.undelegate(self.container, "click", "." + BTN_CLASS);
+        },
+
         
         /**
          * 跳转到第一页
@@ -340,7 +347,7 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
             }
             
             self.fire("page:skip", {pageNum: pageNum, target: node});
-            self.fire("page:skipError", {pageNum: pageNum, target: node});
+           // self.fire("page:skipError", {pageNum: pageNum, target: node});
         },
   
         //获取连续页的开始和结束
