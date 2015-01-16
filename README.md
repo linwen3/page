@@ -1,8 +1,8 @@
 ## page(分页组件)
 
 * 版本：2.0.5
-* 教程：[http://gallery.kissyui.com/page/1.0/guide/index.html](http://kpm.taobao.net/page/doc/guide/index.html)
-* demo：[http://gallery.kissyui.com/page/1.0/demo/index.html](http://kpm.taobao.net/page/doc/demo/index.html)
+* 教程：[http://kpm.taobao.net/page/doc/guide/index.html](http://kpm.taobao.net/page/doc/guide/index.html)
+* demo：[http://kpm.taobao.net/page/doc/demo/index.html](http://kpm.taobao.net/page/doc/demo/index.html)
 
 ### 组件介绍
 * 根据已知总页数，生成带页码的分页
