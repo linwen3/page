@@ -338,10 +338,11 @@ KISSY.add(function (S, Node, RichBase, Event, Uri) {
          */
         skip: function(pageNum, node){
            var self = this;
+           var pageNum = Number(pageNum);
            
            self.fire("before:skip", {pageNum: pageNum, target: node});
            if(pageNum > 0 && pageNum <= self.get("total_page")){//判断是大于1的数字
-                self.set("current_page", parseInt(pageNum));
+                self.set("current_page", pageNum);
                 self.renderPage();
                 self.fire("after:skip", {pageNum: pageNum, target: node});
             }
